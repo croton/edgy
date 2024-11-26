@@ -1,0 +1,14 @@
+[build]
+  publish = "/public"
+
+[[edge_functions]]
+  function = "hello"
+  path = "/hello"
+
+[[edge_functions]]
+  function = "transform-hello"
+  path = "/hello-template"
+
+[[edge_functions]]
+  function = "geo"
+  path = "/geo"
