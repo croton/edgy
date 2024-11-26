@@ -1,9 +1,10 @@
-const COUNTRY_LIST = ['FR', 'UK'];
-const baseurl = 'http://localhost:8888';
+const COUNTRY_LIST = ['NO', 'UK', 'ES'];
+const baseurl = 'https://edgy-tutorial.netlify.app';
 const DESTINATIONS = {
-  FR: `${baseurl}/fr/`,
+  NO: `${baseurl}/no/`,
   UK: `${baseurl}/uk/`,
-  ALL: `${baseurl}/country-selector/`,
+  ES: `${baseurl}/es/`,
+  ALL: `${baseurl}/default-page/`,
 };
 const OPTION = 'ous'; // name of parameter to be optionally provided on url
 
@@ -14,8 +15,8 @@ export default async (request, context) => {
   const countryCode = context.geo?.country?.code || 'ANY';
   const redirectTo = (COUNTRY_LIST.includes(countryCode) ? DESTINATIONS[countryCode] :
     (override ? DESTINATIONS[override.toUpperCase()] : DESTINATIONS.ALL));
-  const msg = `Your country ${countryCode} or ${override || 'no override'} goes to ${redirectTo}`;
-
+  const msg=`Origin ${countryCode} ${(override ? 'overridden to '+override:'...')} goes to ${redirectTo}`;
+  context.log(msg);
   return new Response(msg, {headers: { 'content-type': 'text/html' }});
 };
 
